@@ -118,6 +118,9 @@ class WorkspaceRepository:
             except (OSError, json.JSONDecodeError):
                 continue
 
+            if not isinstance(meta, dict):
+                continue
+
             source = meta.get("source_folder", "")
             summaries.append(WorkspaceSummary(
                 name=meta.get("name", workspace_file.parent.name),

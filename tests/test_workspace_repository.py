@@ -53,3 +53,29 @@ def test_source_exists_reflects_filesystem(tmp_path):
     by_name = {s.name: s for s in repo.list_all()}
     assert by_name["A"].source_exists is True
     assert by_name["B"].source_exists is False
+
+
+def test_list_all_skips_non_dict_json(tmp_path):
+    _write_workspace(tmp_path, "good", {
+        "name": "Good", "source_folder": str(tmp_path),
+        "updated_at": "2026-07-01T00:00:00",
+    })
+    bad = tmp_path / "bad"
+    bad.mkdir()
+    (bad / "workspace.json").write_text("null", encoding="utf-8")
+    repo = WorkspaceRepository(base_dir=tmp_path)
+    result = repo.list_all()
+    assert [s.name for s in result] == ["Good"]
+
+
+def test_list_all_empty_updated_at_sorts_last(tmp_path):
+    _write_workspace(tmp_path, "dated", {
+        "name": "Dated", "source_folder": str(tmp_path),
+        "updated_at": "2026-07-01T00:00:00",
+    })
+    _write_workspace(tmp_path, "nodate", {
+        "name": "NoDate", "source_folder": str(tmp_path),
+    })
+    repo = WorkspaceRepository(base_dir=tmp_path)
+    result = repo.list_all()
+    assert [s.name for s in result] == ["Dated", "NoDate"]
