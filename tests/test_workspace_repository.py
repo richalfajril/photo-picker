@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from src.repositories.workspace_repository import WorkspaceRepository, WorkspaceSummary
+from src.repositories.workspace_repository import WorkspaceRepository
 
 
 def _write_workspace(base: Path, slug: str, meta: dict) -> None:
