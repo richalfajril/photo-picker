@@ -306,45 +306,47 @@ Status setiap task dapat diperbarui selama proses pengembangan.
 
 # Testing Checklist
 
+> Otomatis (pytest, 2026-07-19): `.venv/bin/pytest -q` → 80 passed. Detail per test-case ID + status manual/blocked/discrepancy ada di `docs/TEST_PLAN.md`.
+
 ## Startup
 
-- [ ] Startup Window tampil
-- [ ] Validasi input bekerja
+- [x] Startup Window tampil (smoke launch)
+- [x] Validasi input bekerja (ST-002…005)
 
 ---
 
 ## Viewer
 
-- [ ] Viewer tampil
-- [ ] Navigasi keyboard bekerja
-- [ ] Zoom bekerja
-- [ ] Pan bekerja
+- [x] Viewer tampil (label/badge; fullscreen visual = manual)
+- [x] Navigasi keyboard bekerja (KB-001…005)
+- [x] Zoom bekerja (ZP-001/002/003)
+- [ ] Pan bekerja (manual — interaksi/visual)
 
 ---
 
 ## Selection
 
-- [ ] Copy berhasil
-- [ ] Undo berhasil
-- [ ] Overlay tampil
-- [ ] Sound diputar
+- [x] Copy berhasil (SL-001/002/003/005)
+- [x] Undo berhasil (UD-001…004)
+- [x] Overlay tampil (OV-001/002/003)
+- [x] Sound diputar (SD-001/002/003)
 
 ---
 
 ## Workspace
 
-- [ ] Workspace tersimpan
-- [ ] Workspace dipulihkan
-- [ ] Progress sesuai
+- [x] Workspace tersimpan (WS-001/003, WR-001)
+- [x] Workspace dipulihkan (WR-003/004)
+- [x] Progress sesuai (WS-004 auto-save)
 
 ---
 
 ## Performance
 
-- [ ] 100 foto
-- [ ] 1.000 foto
-- [ ] 10.000 foto
-- [ ] 50.000 foto
+- [x] 100 foto (PF-001)
+- [x] 1.000 foto (PF-002)
+- [ ] 10.000 foto (manual — dataset besar)
+- [ ] 50.000 foto (manual — dataset besar)
 
 ---
 

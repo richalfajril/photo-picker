@@ -25,7 +25,11 @@ class OverlayManager:
         self.label.setGraphicsEffect(self.opacity_effect)
         
         self.fade_anim = QPropertyAnimation(self.opacity_effect, b"opacity")
-        
+        # Connect the hide-on-finish once here. Reconnecting per fade (and
+        # disconnecting on the next show) triggered a libpyside RuntimeWarning
+        # on the first show, when nothing was connected yet.
+        self.fade_anim.finished.connect(self.label.hide)
+
         self.timer = QTimer()
         self.timer.setSingleShot(True)
         self.timer.timeout.connect(self._start_fade_out)
@@ -48,13 +52,7 @@ class OverlayManager:
         
         self.label.adjustSize()
         self._center_label()
-        
-        # Disconnect previous finished connections if any
-        try:
-            self.fade_anim.finished.disconnect()
-        except RuntimeError:
-            pass
-            
+
         self.opacity_effect.setOpacity(1.0)
         self.label.show()
         self.label.raise_()
@@ -70,7 +68,6 @@ class OverlayManager:
         self.fade_anim.setDuration(400)
         self.fade_anim.setStartValue(1.0)
         self.fade_anim.setEndValue(0.0)
-        self.fade_anim.finished.connect(self.label.hide)
         self.fade_anim.start()
 
     def _center_label(self) -> None:
