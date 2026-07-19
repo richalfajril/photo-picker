@@ -46,7 +46,22 @@ def main() -> None:
         window.hide()
         active_controller = ViewerController(payload, loaded_workspace=loaded_workspace)
 
+    def on_reopen(name: str) -> None:
+        global active_controller
+        ws = repo.load(name)
+        if ws is None:
+            return  # folder vanished between listing and click
+        payload: dict[str, Any] = {
+            "workspace_name": ws.name,
+            "source_folder": ws.source_folder,
+            "destination_folder": ws.destination_folder,
+            "settings": window.current_settings(),
+        }
+        window.hide()
+        active_controller = ViewerController(payload, loaded_workspace=ws)
+
     window.start_requested.connect(on_start)
+    window.reopen_requested.connect(on_reopen)
     window.show()
 
     sys.exit(app.exec())

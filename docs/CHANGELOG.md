@@ -73,6 +73,7 @@ Perubahan yang berkaitan dengan keamanan.
 - Phase 7: Workspace Recovery (`RecoveryDialog` UI, auto-saving index on navigation, and intercepting app start to load existing workspaces).
 - Phase 8: Polish & Error Handling (Added "Selected Badge", basic Sound beep, and Path.exists() validation for the Source Folder).
 - Phase 9: Packaging (Added PyInstaller to dependencies and built macOS standalone `.app` bundle).
+- Recent Workspaces: the Start window now lists previously-saved workspaces and reopens one at its last-viewed photo in a single click (`WorkspaceRepository.list_all`, `RecentWorkspacesList`).
 
 ## Planned
 
