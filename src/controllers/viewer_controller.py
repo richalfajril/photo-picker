@@ -9,6 +9,7 @@ from PySide6.QtWidgets import QApplication
 
 from src.presentation.viewer_window import ViewerWindow
 from src.presentation.loading_screen import LoadingScreen
+from src.presentation.exit_dialog import ExitDialog
 from src.domain.workspace import Workspace
 from src.services.image_loader_service import ImageLoaderService
 from src.services.cache_manager import CacheManager
@@ -151,7 +152,9 @@ class ViewerController(QObject):
             self._update_ui()
 
     def exit_app(self) -> None:
-        self.viewer_window.close()
+        dialog = ExitDialog(parent=self.viewer_window)
+        if dialog.exec() == ExitDialog.EXIT:
+            self.viewer_window.close()
 
     def _update_preload(self) -> None:
         """Preloads the next few images into memory cache."""

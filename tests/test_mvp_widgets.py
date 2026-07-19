@@ -10,6 +10,7 @@ from PySide6.QtCore import Qt, QEvent, QPoint, QPointF
 from src.presentation.viewer_window import ViewerWindow, PhotoGraphicsView
 from src.presentation.start_window import StartWindow
 from src.presentation.recovery_dialog import RecoveryDialog
+from src.presentation.exit_dialog import ExitDialog
 from src.services.overlay_manager import OverlayManager
 from src.repositories.workspace_repository import WorkspaceRepository
 from src.domain.workspace import Workspace
@@ -156,6 +157,17 @@ def test_OV001_002_003_overlay_shows_text(qapp):
         assert om.label.isHidden() is False
 
 
+def test_OV004_overlay_duration_within_spec(qapp):
+    from PySide6.QtWidgets import QWidget
+    om = OverlayManager(QWidget())
+    om.show_overlay("COPIED")
+    om._start_fade_out()
+    total = om.timer.interval() + om.fade_anim.duration()
+    assert om.timer.interval() == OverlayManager.VISIBLE_MS
+    assert om.fade_anim.duration() == OverlayManager.FADE_MS
+    assert 250 <= total <= 320  # TEST_PLAN OV-004 (~250-300ms)
+
+
 # --- Startup validation (ST) ---------------------------------------------
 
 def _blank_repo(tmp_path):
@@ -223,3 +235,12 @@ def test_WR002_dialog_builds_with_workspace(qapp):
 def test_WR003_004_result_constants(qapp):
     assert RecoveryDialog.CONTINUE == 1
     assert RecoveryDialog.START_NEW == 2
+
+
+# --- Exit dialog (KB-006) ------------------------------------------------
+
+def test_KB006_exit_dialog_builds_and_has_result_constants(qapp):
+    dlg = ExitDialog()
+    assert dlg.EXIT == 1
+    assert dlg.CANCEL == 2
+    assert dlg.isModal() is True

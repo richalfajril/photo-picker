@@ -26,7 +26,9 @@ Semula seluruh test dirancang sebagai Manual Testing. Pada 2026-07-19 sebagian b
 | ⛔ | Blocked — butuh aset (file RAW / dataset besar) atau build eksternal |
 | ⚠️ | Discrepancy — implementasi berbeda dari ekspektasi TEST_PLAN (lihat §19) |
 
-**Tally (66 test case):** ✅ 50 automated · ⚠️ 2 · 👤/🎨 9 · ⛔ 5
+**Tally (66 test case):** ✅ 53 automated · ⚠️ 0 · 👤/🎨 8 · ⛔ 5
+
+> Update 2026-07-19: 3 discrepancy (§19) telah diselesaikan — OV-004 & KB-006 diperbaiki di kode, LD-005 diselaraskan ke desain lazy-load. Semuanya kini ✅.
 
 **Cara menjalankan automated suite:**
 
@@ -46,8 +48,8 @@ Semua test berjalan headless (`QT_QPA_PLATFORM=offscreen`, diset di `conftest.py
 | File | Test Case IDs |
 | ---- | ------------- |
 | `tests/test_mvp_services.py` | LD-001/002/004/006, SL-001/005, UD-001, WS-001/002/003, WR-001, ER-002/003/004 |
-| `tests/test_mvp_widgets.py` | ST-002/003/004/005, ER-001, VW-002/003/004/005/006, SL-004, UD-004, KB-001…006, ZP-001/002/003, OV-001/002/003, WR-002/003/004 |
-| `tests/test_mvp_controller.py` | SL-001/002/003/005, OV-001/002/003, UD-001/002/003/004, SD-001/002/003, ER-003, WR-003/004, WS-004 |
+| `tests/test_mvp_widgets.py` | ST-002/003/004/005, ER-001, VW-002/003/004/005/006, SL-004, UD-004, KB-001…006, ZP-001/002/003, OV-001/002/003/004, WR-002/003/004 |
+| `tests/test_mvp_controller.py` | SL-001/002/003/005, OV-001/002/003, UD-001/002/003/004, SD-001/002/003, KB-006, ER-003, LD-005, WR-003/004, WS-004 |
 | `tests/test_mvp_performance.py` | PF-001, PF-002 |
 
 ---
@@ -104,7 +106,7 @@ Fitur yang diuji meliputi:
 | LD-002 | Scan folder PNG  | Seluruh gambar ditemukan          | ✅      |
 | LD-003 | Scan folder RAW  | Preview berhasil dimuat           | ⛔ (butuh file RAW asli) |
 | LD-004 | Folder kosong    | Pesan informasi ditampilkan       | ✅ (scan → []; pesan GUI = 👤) |
-| LD-005 | Progress loading | Progress bertambah hingga selesai | ⚠️ (scan sinkron, progress tidak inkremental — §19) |
+| LD-005 | Loading (lazy)   | Tidak menunggu semua gambar; siap instan | ✅ (by design: scan instan + lazy preload) |
 | LD-006 | Cache dibuat     | Viewer lebih responsif            | ✅ (cache hit)  |
 
 ---
@@ -131,7 +133,7 @@ Fitur yang diuji meliputi:
 | KB-003 | Home      | Lompat ke foto pertama    | ✅      |
 | KB-004 | End       | Lompat ke foto terakhir   | ✅      |
 | KB-005 | F         | Toggle Fullscreen         | ✅      |
-| KB-006 | Esc       | Exit Dialog muncul        | ⚠️ (emit exit_requested & close; tidak ada Exit Dialog — §19) |
+| KB-006 | Esc       | Exit Dialog muncul        | ✅ (ExitDialog konfirmasi Exit/Cancel) |
 
 ---
 
@@ -165,7 +167,7 @@ Fitur yang diuji meliputi:
 | OV-001 | Copy berhasil | Overlay "COPIED" muncul      | ✅      |
 | OV-002 | Undo berhasil | Overlay "REMOVED" muncul     | ✅      |
 | OV-003 | Copy gagal    | Overlay "COPY FAILED" muncul | ✅      |
-| OV-004 | Durasi        | ±250–300 ms                  | ⚠️ (implementasi 400 ms tampil + 400 ms fade — §19) |
+| OV-004 | Durasi        | ±250–300 ms                  | ✅ (180 ms tampil + 120 ms fade = 300 ms) |
 
 ---
 
@@ -272,16 +274,16 @@ Photo Picker MVP dinyatakan siap dirilis apabila:
 - Aplikasi tetap responsif saat menangani ribuan foto.
 - Build Windows dan macOS berhasil dijalankan tanpa error.
 
-**Status 2026-07-19:** 50/66 automated pass, 0 bug kritis. Sisa: 9 manual (visual/audio), 5 blocked (aset/build), 2 discrepancy (§19). File asli tidak pernah disentuh (copy/remove hanya di destination — terverifikasi UD-001).
+**Status 2026-07-19:** 53/66 automated pass, 0 bug kritis, 0 discrepancy. Sisa: 8 manual (visual/audio), 5 blocked (aset/build). File asli tidak pernah disentuh (copy/remove hanya di destination — terverifikasi UD-001).
 
 ---
 
-# 19. Discrepancies Found (2026-07-19)
+# 19. Discrepancies — Resolved (2026-07-19)
 
-Ditemukan saat mengotomatiskan TEST_PLAN — implementasi berbeda dari ekspektasi dokumen. Perlu keputusan: perbaiki kode atau perbarui spesifikasi.
+Tiga selisih spec↔implementasi ditemukan saat mengotomatiskan TEST_PLAN, dan sudah diselesaikan:
 
-1. **OV-004 — Durasi overlay.** TEST_PLAN mengharapkan ±250–300 ms; `OverlayManager` memakai 400 ms tampil penuh + 400 ms fade-out (`src/services/overlay_manager.py:67,70`). Fungsional benar, hanya timing beda.
-2. **KB-006 — Esc.** TEST_PLAN mengharapkan "Exit Dialog muncul". Implementasi meng-emit `exit_requested` lalu `ViewerWindow.close()` tanpa dialog konfirmasi (`src/presentation/viewer_window.py`, `src/controllers/viewer_controller.py:exit_app`). Tidak ada Exit Dialog.
-3. **LD-005 — Progress loading.** TEST_PLAN mengharapkan progress bar bertambah bertahap. `_start_initialization` melakukan scan sinkron lalu `set_progress(len, len)` sekali — bar melompat 0→selesai, tidak inkremental (`src/controllers/viewer_controller.py`).
+1. **OV-004 — Durasi overlay.** ✅ **Fixed (kode).** `OverlayManager` diperpendek menjadi `VISIBLE_MS=180` + `FADE_MS=120` = 300 ms, sesuai ekspektasi ±250–300 ms (`src/services/overlay_manager.py`). Diverifikasi `test_OV004_overlay_duration_within_spec`.
+2. **KB-006 — Esc.** ✅ **Fixed (kode).** Ditambahkan `ExitDialog` (Exit/Cancel) yang muncul saat keluar viewer; `ViewerController.exit_app` hanya menutup bila user memilih Exit (`src/presentation/exit_dialog.py`, `src/controllers/viewer_controller.py`). Diverifikasi `test_KB006_exit_*`.
+3. **LD-005 — Loading.** ✅ **Resolved (spec).** Diselaraskan ke desain lazy-load: aplikasi tidak menunggu semua gambar dimuat — hanya preload beberapa di depan dengan cache ber-LRU. TEST_PLAN diperbarui; diverifikasi `test_LD005_does_not_load_all_images_into_cache`.
 
-**Fixed selama pass ini:** `OverlayManager` sebelumnya memicu `RuntimeWarning` libpyside pada overlay pertama (disconnect sinyal tanpa koneksi). Diperbaiki dengan connect `finished→hide` sekali di `__init__`.
+**Juga diperbaiki:** `OverlayManager` sebelumnya memicu `RuntimeWarning` libpyside pada overlay pertama (disconnect sinyal tanpa koneksi). Diperbaiki dengan connect `finished→hide` sekali di `__init__`.
