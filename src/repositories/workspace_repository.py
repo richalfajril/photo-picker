@@ -3,11 +3,24 @@ Repository for managing Workspace storage.
 """
 import json
 import re
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, List
 
 from src.domain.workspace import Workspace
 from src.config.constants import WORKSPACES_DIR
+
+
+@dataclass
+class WorkspaceSummary:
+    """Lightweight, read-only view of a saved workspace for the recent list."""
+    name: str
+    source_folder: str
+    destination_folder: str
+    current_index: int
+    total_images: int
+    updated_at: str
+    source_exists: bool
 
 
 class WorkspaceRepository:
@@ -91,3 +104,30 @@ class WorkspaceRepository:
             )
         except Exception:
             return None
+
+    def list_all(self) -> List[WorkspaceSummary]:
+        """
+        Scan the workspaces directory and return a summary for each saved workspace,
+        sorted by updated_at descending. Unparseable entries are skipped.
+        """
+        summaries: List[WorkspaceSummary] = []
+        for workspace_file in self.base_dir.glob("*/workspace.json"):
+            try:
+                with open(workspace_file, "r", encoding="utf-8") as f:
+                    meta = json.load(f)
+            except (OSError, json.JSONDecodeError):
+                continue
+
+            source = meta.get("source_folder", "")
+            summaries.append(WorkspaceSummary(
+                name=meta.get("name", workspace_file.parent.name),
+                source_folder=source,
+                destination_folder=meta.get("destination_folder", ""),
+                current_index=meta.get("current_index", 0),
+                total_images=meta.get("total_images", 0),
+                updated_at=meta.get("updated_at", ""),
+                source_exists=bool(source) and Path(source).exists(),
+            ))
+
+        summaries.sort(key=lambda s: s.updated_at, reverse=True)
+        return summaries
