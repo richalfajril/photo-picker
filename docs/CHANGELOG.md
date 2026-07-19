@@ -81,6 +81,7 @@ Perubahan yang berkaitan dengan keamanan.
 - Overlay notification duration shortened to ~300ms (180ms visible + 120ms fade) so feedback keeps up with rapid culling (TEST_PLAN OV-004).
 
 ## Fixed
+- Viewer arrow-key navigation: Left/Right did nothing because the child `QGraphicsView` held focus and consumed arrow keys; the view now forwards keys up to `ViewerWindow`. Added a regression test that drives keys through the focused child.
 - `OverlayManager` emitted a libpyside `RuntimeWarning` on the first overlay (disconnecting a signal with no connection); now connects `finished→hide` once at construction.
 
 ## Planned

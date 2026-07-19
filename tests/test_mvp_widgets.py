@@ -6,6 +6,7 @@ WR-003/004(result constants).
 """
 from PySide6.QtGui import QImage, QKeyEvent, QWheelEvent
 from PySide6.QtCore import Qt, QEvent, QPoint, QPointF
+from PySide6.QtTest import QTest
 
 from src.presentation.viewer_window import ViewerWindow, PhotoGraphicsView
 from src.presentation.start_window import StartWindow
@@ -77,6 +78,20 @@ def test_KB001_to_004_navigation_signals(qapp):
     _press(vw, Qt.Key.Key_Home)
     _press(vw, Qt.Key.Key_End)
     assert fired == ["next", "prev", "first", "last"]
+
+
+def test_KB001_002_arrows_propagate_through_graphics_view(qapp):
+    # Regression: the child PhotoGraphicsView (a QGraphicsView) must NOT swallow
+    # arrow keys — they have to reach ViewerWindow so navigation works when the
+    # graphics view holds keyboard focus (the real-app condition).
+    vw = ViewerWindow()
+    vw.set_image(_solid_image(), "a.jpg", 1, 5, 0, False)
+    fired = []
+    vw.next_requested.connect(lambda: fired.append("next"))
+    vw.prev_requested.connect(lambda: fired.append("prev"))
+    QTest.keyClick(vw.photo_view, Qt.Key.Key_Right)
+    QTest.keyClick(vw.photo_view, Qt.Key.Key_Left)
+    assert fired == ["next", "prev"]
 
 
 def test_KB005_f_toggles_fullscreen_flag(qapp):

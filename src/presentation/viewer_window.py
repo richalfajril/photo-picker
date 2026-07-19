@@ -69,6 +69,12 @@ class PhotoGraphicsView(QGraphicsView):
             self.reset_zoom()
         super().mouseDoubleClickEvent(event)
 
+    def keyPressEvent(self, event: QKeyEvent) -> None:
+        # The ViewerWindow owns all keyboard shortcuts. QGraphicsView otherwise
+        # consumes arrow keys (scene scrolling) and they never reach the window,
+        # so ignore every key here to let it propagate up to the parent.
+        event.ignore()
+
 
 class ViewerWindow(QWidget):
     """
