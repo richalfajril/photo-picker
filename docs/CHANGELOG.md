@@ -74,7 +74,11 @@ Perubahan yang berkaitan dengan keamanan.
 - Phase 8: Polish & Error Handling (Added "Selected Badge", basic Sound beep, and Path.exists() validation for the Source Folder).
 - Phase 9: Packaging (Added PyInstaller to dependencies and built macOS standalone `.app` bundle).
 - Recent Workspaces: the Start window now lists previously-saved workspaces and reopens one at its last-viewed photo in a single click (`WorkspaceRepository.list_all`, `RecentWorkspacesList`).
-- Automated MVP test suite (54 pytest cases across services, widgets, controller, and performance) covering the TEST_PLAN's logic-level cases; results matrix and remaining manual/blocked items recorded in `docs/TEST_PLAN.md`.
+- Automated MVP test suite (pytest across services, widgets, controller, and performance) covering the TEST_PLAN's logic-level cases; results matrix and remaining manual/blocked items recorded in `docs/TEST_PLAN.md`.
+- Exit confirmation dialog (`ExitDialog`): pressing Esc / leaving the viewer now prompts Exit / Cancel instead of quitting immediately (TEST_PLAN KB-006).
+
+## Changed
+- Overlay notification duration shortened to ~300ms (180ms visible + 120ms fade) so feedback keeps up with rapid culling (TEST_PLAN OV-004).
 
 ## Fixed
 - `OverlayManager` emitted a libpyside `RuntimeWarning` on the first overlay (disconnecting a signal with no connection); now connects `finished→hide` once at construction.

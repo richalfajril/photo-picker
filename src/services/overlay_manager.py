@@ -9,6 +9,11 @@ class OverlayManager:
     """
     Manages transient visual notifications on top of the ViewerWindow.
     """
+    # Overlay timing (TEST_PLAN OV-004: ~250-300ms total). Kept short so the
+    # feedback keeps up with rapid Space/Backspace culling.
+    VISIBLE_MS = 180
+    FADE_MS = 120
+
     def __init__(self, parent_widget: QWidget) -> None:
         self.parent = parent_widget
         
@@ -61,11 +66,11 @@ class OverlayManager:
         self.fade_anim.stop()
         self.timer.stop()
         
-        # Keep it fully visible for 400ms before fading out
-        self.timer.start(400)
+        # Keep it fully visible briefly before fading out
+        self.timer.start(self.VISIBLE_MS)
 
     def _start_fade_out(self) -> None:
-        self.fade_anim.setDuration(400)
+        self.fade_anim.setDuration(self.FADE_MS)
         self.fade_anim.setStartValue(1.0)
         self.fade_anim.setEndValue(0.0)
         self.fade_anim.start()

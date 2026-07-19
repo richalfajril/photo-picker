@@ -170,6 +170,29 @@ def test_ER003_corrupt_image_does_not_crash_navigation(make_controller):
     assert ctrl.workspace.current_index == 0
 
 
+# --- Exit confirmation (KB-006) ------------------------------------------
+
+def test_KB006_exit_confirmed_closes_viewer(make_controller, monkeypatch):
+    ctrl, paths, dst, _ = make_controller(count=2)
+    closed = []
+    monkeypatch.setattr(ctrl.viewer_window, "close", lambda: closed.append(1))
+    # Simulate the user choosing "Exit" in the dialog (exec returns EXIT).
+    monkeypatch.setattr(vc_mod.ExitDialog, "exec",
+                        lambda self: vc_mod.ExitDialog.EXIT)
+    ctrl.exit_app()
+    assert closed == [1]
+
+
+def test_KB006_exit_cancelled_keeps_viewer_open(make_controller, monkeypatch):
+    ctrl, paths, dst, _ = make_controller(count=2)
+    closed = []
+    monkeypatch.setattr(ctrl.viewer_window, "close", lambda: closed.append(1))
+    monkeypatch.setattr(vc_mod.ExitDialog, "exec",
+                        lambda self: vc_mod.ExitDialog.CANCEL)
+    ctrl.exit_app()
+    assert closed == []  # cancelled -> viewer stays open
+
+
 # --- Workspace recovery resume (WR) --------------------------------------
 
 def test_WR003_resume_restores_saved_index(make_controller, tmp_path, make_images):
@@ -191,6 +214,18 @@ def test_WR003_stale_index_is_clamped(make_controller, tmp_path, make_images):
 def test_WR004_start_new_begins_at_zero(make_controller):
     ctrl, paths, dst, _ = make_controller(count=3, loaded_workspace=None)
     assert ctrl.workspace.current_index == 0
+
+
+# --- Lazy loading, no blocking wait (LD-005) -----------------------------
+
+def test_LD005_does_not_load_all_images_into_cache(make_controller):
+    # Lazy design: the viewer opens without loading every image; the memory
+    # cache is bounded (LRU eviction), so a large folder never fully loads.
+    ctrl, paths, dst, _ = make_controller(count=20)
+    assert len(paths) == 20
+    cached = len(ctrl.cache_manager._memory_cache)
+    assert cached <= ctrl.cache_manager.max_memory_items  # bounded
+    assert cached < len(paths)                            # not all loaded
 
 
 # --- Auto-save on navigation (WS-004) ------------------------------------
