@@ -1,27 +1,36 @@
 """
 Startup Window UI Component.
 """
+from typing import Any, Dict, Optional
+
 from PySide6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QLabel, 
+    QWidget, QVBoxLayout, QHBoxLayout, QLabel,
     QLineEdit, QPushButton, QCheckBox, QFileDialog, QFormLayout
 )
 from PySide6.QtCore import Qt, Signal
+
+from src.presentation.recent_workspaces_list import RecentWorkspacesList
+from src.repositories.workspace_repository import WorkspaceRepository
 
 
 class StartWindow(QWidget):
     """
     The initial window for workspace configuration.
     """
-    
+
     # Signal emitted when start button is clicked
     start_requested = Signal(dict)
+    # Signal emitted when a recent workspace row is clicked
+    reopen_requested = Signal(str)
 
-    def __init__(self) -> None:
+    def __init__(self, workspace_repo: Optional[WorkspaceRepository] = None) -> None:
         super().__init__()
         self.setWindowTitle("Photo Picker - Start")
+        self._workspace_repo = workspace_repo or WorkspaceRepository()
         self._setup_ui()
         self._connect_signals()
         self._validate_inputs()
+        self._load_recent_workspaces()
 
     def _setup_ui(self) -> None:
         main_layout = QVBoxLayout(self)
@@ -88,7 +97,11 @@ class StartWindow(QWidget):
         self.start_btn.setMinimumHeight(40)
         self.start_btn.setStyleSheet("font-weight: bold;")
         main_layout.addWidget(self.start_btn)
-        
+
+        # Recent Workspaces
+        self.recent_list = RecentWorkspacesList()
+        main_layout.addWidget(self.recent_list)
+
         self.setMinimumWidth(500)
 
     def _connect_signals(self) -> None:
@@ -96,6 +109,18 @@ class StartWindow(QWidget):
         self.source_browse_btn.clicked.connect(self._browse_source)
         self.dest_browse_btn.clicked.connect(self._browse_dest)
         self.start_btn.clicked.connect(self._on_start_clicked)
+        self.recent_list.workspace_selected.connect(self.reopen_requested.emit)
+
+    def _load_recent_workspaces(self) -> None:
+        self.recent_list.set_items(self._workspace_repo.list_all())
+
+    def current_settings(self) -> Dict[str, bool]:
+        return {
+            "fullscreen": self.cb_fullscreen.isChecked(),
+            "auto_next": self.cb_auto_next.isChecked(),
+            "sound": self.cb_sound.isChecked(),
+            "recovery": self.cb_recovery.isChecked(),
+        }
 
     def _browse_source(self) -> None:
         folder = QFileDialog.getExistingDirectory(self, "Select Source Folder")
@@ -124,15 +149,10 @@ class StartWindow(QWidget):
         self.start_btn.setEnabled(is_valid)
 
     def _on_start_clicked(self) -> None:
-        payload = {
+        payload: Dict[str, Any] = {
             "workspace_name": self.workspace_name_input.text().strip(),
             "source_folder": self.source_input.text().strip(),
             "destination_folder": self.dest_input.text().strip(),
-            "settings": {
-                "fullscreen": self.cb_fullscreen.isChecked(),
-                "auto_next": self.cb_auto_next.isChecked(),
-                "sound": self.cb_sound.isChecked(),
-                "recovery": self.cb_recovery.isChecked()
-            }
+            "settings": self.current_settings(),
         }
         self.start_requested.emit(payload)
