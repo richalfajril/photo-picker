@@ -36,35 +36,35 @@ Status setiap task dapat diperbarui selama proses pengembangan.
 
 ## 1.1 Initialize Project
 
-- [ ] Membuat struktur folder project
-- [ ] Membuat virtual environment
-- [ ] Install dependencies
-- [ ] Membuat requirements.txt
-- [ ] Konfigurasi Git
+- [x] Membuat struktur folder project
+- [x] Membuat virtual environment
+- [x] Install dependencies
+- [x] Membuat requirements.txt
+- [x] Konfigurasi Git
 
 ---
 
 ## 1.2 Create Project Structure
 
-- [ ] src/
-- [ ] presentation/
-- [ ] controllers/
-- [ ] domain/
-- [ ] repositories/
-- [ ] services/
-- [ ] storage/
-- [ ] config/
-- [ ] utils/
-- [ ] assets/
-- [ ] tests/
+- [x] src/
+- [x] presentation/
+- [x] controllers/
+- [x] domain/
+- [x] repositories/
+- [x] services/
+- [x] storage/
+- [x] config/
+- [x] utils/
+- [x] assets/
+- [x] tests/
 
 ---
 
 ## 1.3 Application Entry
 
-- [ ] main.py
-- [ ] QApplication
-- [ ] Load Startup Window
+- [x] main.py
+- [x] QApplication
+- [x] Load Startup Window
 
 ---
 
@@ -72,35 +72,35 @@ Status setiap task dapat diperbarui selama proses pengembangan.
 
 ## 2.1 Workspace
 
-- [ ] Workspace Model
-- [ ] Current Index
-- [ ] Selected Images
-- [ ] Statistics
+- [x] Workspace Model
+- [x] Current Index
+- [x] Selected Images
+- [x] Statistics
 
 ---
 
 ## 2.2 WorkspaceRepository
 
-- [ ] Load Workspace
-- [ ] Save Workspace
-- [ ] Update Progress
+- [x] Load Workspace
+- [x] Save Workspace
+- [x] Update Progress
 
 ---
 
 ## 2.3 SettingsRepository
 
-- [ ] Load settings.json
-- [ ] Save settings.json
-- [ ] Default Settings
+- [x] Load settings.json
+- [x] Save settings.json
+- [x] Default Settings
 
 ---
 
 ## 2.4 Storage
 
-- [ ] Auto create storage folder
-- [ ] Auto create workspace folder
-- [ ] Auto create cache folder
-- [ ] Auto create logs folder
+- [x] Auto create storage folder
+- [x] Auto create workspace folder
+- [x] Auto create cache folder
+- [x] Auto create logs folder
 
 ---
 
@@ -108,24 +108,24 @@ Status setiap task dapat diperbarui selama proses pengembangan.
 
 ## 3.1 UI
 
-- [ ] Workspace Name
-- [ ] Source Folder
-- [ ] Destination Folder
-- [ ] Browse Button
-- [ ] Fullscreen Checkbox
-- [ ] Auto Next Checkbox
-- [ ] Sound Checkbox
-- [ ] Workspace Recovery Checkbox
-- [ ] Start Button
+- [x] Workspace Name
+- [x] Source Folder
+- [x] Destination Folder
+- [x] Browse Button
+- [x] Fullscreen Checkbox
+- [x] Auto Next Checkbox
+- [x] Sound Checkbox
+- [x] Workspace Recovery Checkbox
+- [x] Start Button
 
 ---
 
 ## 3.2 Validation
 
-- [ ] Workspace Name wajib diisi
-- [ ] Source Folder wajib dipilih
-- [ ] Destination Folder wajib dipilih
-- [ ] Enable Start Button jika valid
+- [x] Workspace Name wajib diisi
+- [x] Source Folder wajib dipilih
+- [x] Destination Folder wajib dipilih
+- [x] Enable Start Button jika valid
 
 ---
 

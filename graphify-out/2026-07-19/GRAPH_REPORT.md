@@ -1,18 +1,12 @@
-# Graph Report - photo-picker  (2026-07-19)
+# Graph Report - .  (2026-07-19)
 
 ## Corpus Check
-- 35 files · ~16,141 words
-- Verdict: corpus is large enough that graph structure adds value.
+- Corpus is ~15,017 words - fits in a single context window. You may not need a graph.
 
 ## Summary
-- 645 nodes · 638 edges · 31 communities (29 shown, 2 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 1 edges (avg confidence: 0.5)
+- 579 nodes · 564 edges · 18 communities (16 shown, 2 thin omitted)
+- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
-
-## Graph Freshness
-- Built from commit: `d05e19d0`
-- Run `git rev-parse HEAD` and compare to check if the graph is stale.
-- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - UI Specification
@@ -33,10 +27,6 @@
 - Class Diagram
 - Graphify Workflow
 - Graphify Rules
-- WorkspaceRepository
-- SettingsRepository
-- StartWindow
-- Q: What connects graphify, Workflow: graphify, Photo Picker AI Development Guide to the rest of the system?
 
 ## God Nodes (most connected - your core abstractions)
 1. `UI_SPEC` - 58 edges
@@ -51,15 +41,9 @@
 10. `CHANGELOG` - 30 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `WorkspaceRepository` --uses--> `Workspace`  [INFERRED]
-  src/repositories/workspace_repository.py → src/domain/workspace.py
-- `main()` --calls--> `StartWindow`  [EXTRACTED]
-  src/main.py → src/presentation/start_window.py
+- None detected - all connections are within the same source files.
 
-## Import Cycles
-- None detected.
-
-## Communities (31 total, 2 thin omitted)
+## Communities (18 total, 2 thin omitted)
 
 ### Community 0 - "UI Specification"
 Cohesion: 0.03
@@ -125,32 +109,16 @@ Nodes (20): 1. Overview, 2. Storage Structure, 3. Storage Components, 4. Workspa
 Cohesion: 0.11
 Nodes (18): CacheManager, CLASS_DIAGRAM, Controller, Dependency Rules, Domain, FileOperationService, ImageLoaderService, Layer Description (+10 more)
 
-### Community 18 - "WorkspaceRepository"
-Cohesion: 0.14
-Nodes (12): Domain model for Workspace., Represents the state of a Photo Picker session.     Workspace is the aggregate r, Update the last modified timestamp., Workspace, Path, Repository for managing Workspace storage., Handles reading and writing Workspace data to the file system., Convert workspace name to a safe folder name. (+4 more)
-
-### Community 19 - "SettingsRepository"
-Cohesion: 0.15
-Nodes (10): Any, Global constants for Photo Picker MVP., Path, Repository for managing global Application Settings., Handles reading and writing application settings to settings.json., Returns the default settings structure., Load settings from file, returning defaults if not found or corrupted., Save settings to the file system. (+2 more)
-
-### Community 20 - "StartWindow"
-Cohesion: 0.18
-Nodes (7): QWidget, main(), Entry point for the Photo Picker application., Startup Window UI Component., Enables the Start button only if all required fields are filled., The initial window for workspace configuration., StartWindow
-
-### Community 21 - "Q: What connects graphify, Workflow: graphify, Photo Picker AI Development Guide to the rest of the system?"
-Cohesion: 0.50
-Nodes (3): Answer, Q: What connects graphify, Workflow: graphify, Photo Picker AI Development Guide to the rest of the system?, Source Nodes
-
 ## Knowledge Gaps
-- **549 isolated node(s):** `Answer`, `Source Nodes`, `graphify`, `Workflow: graphify`, `Photo Picker AI Development Guide` (+544 more)
+- **547 isolated node(s):** `graphify`, `Workflow: graphify`, `Photo Picker AI Development Guide`, `Project Overview`, `Mandatory Rules` (+542 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **What connects `Answer`, `Source Nodes`, `graphify` to the rest of the system?**
-  _549 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `graphify`, `Workflow: graphify`, `Photo Picker AI Development Guide` to the rest of the system?**
+  _547 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `UI Specification` be split into smaller, more focused modules?**
   _Cohesion score 0.03389830508474576 - nodes in this community are weakly interconnected._
 - **Should `Task Breakdown` be split into smaller, more focused modules?**

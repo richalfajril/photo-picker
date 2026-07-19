@@ -63,6 +63,11 @@ Perubahan yang berkaitan dengan keamanan.
 
 # [Unreleased]
 
+## Added
+- Phase 1: Project Setup (`src/` structure, `main.py` entry point, dependencies).
+- Phase 2: Domain & Storage (`Workspace` model, `WorkspaceRepository`, `SettingsRepository`, and auto-creation of storage folders).
+- Phase 3: Startup Window (`StartWindow` UI with layout, configuration inputs, and validation logic).
+
 ## Planned
 
 ### Added

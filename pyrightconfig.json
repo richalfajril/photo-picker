@@ -1,0 +1,8 @@
+{
+  "venvPath": "/Users/richalfajril/photo-picker",
+  "venv": ".venv",
+  "pythonVersion": "3.12",
+  "extraPaths": [
+    "/Users/richalfajril/photo-picker/.venv/lib/python3.12/site-packages"
+  ]
+}
