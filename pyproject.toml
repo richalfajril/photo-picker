@@ -1,0 +1,8 @@
+PySide6
+pillow
+rawpy
+opencv-python
+numpy
+pytest
+ruff
+mypy
