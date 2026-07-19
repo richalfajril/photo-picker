@@ -55,7 +55,7 @@ class RecentWorkspacesList(QWidget):
         if summary.source_exists:
             label = (
                 f"{summary.name}    "
-                f"{summary.current_index} / {summary.total_images}    "
+                f"{summary.current_index + 1} / {summary.total_images}    "
                 f"{format_relative_time(summary.updated_at)}"
             )
             btn = QPushButton(label)

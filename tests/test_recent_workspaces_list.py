@@ -44,3 +44,19 @@ def test_empty_state_hidden_when_items_present(qapp):
     widget = RecentWorkspacesList()
     widget.set_items([_summary("Wedding")])
     assert widget._empty_label.isHidden() is True
+
+
+def test_enabled_row_label_shows_one_based_progress(qapp):
+    widget = RecentWorkspacesList()
+    widget.set_items([_summary("Wedding")])  # _summary defaults: current_index=1, total_images=10
+    row = widget._rows_container.itemAt(0).widget()
+    assert "2 / 10" in row.text()  # current_index 1 -> displayed 2
+    assert "Wedding" in row.text()
+
+
+def test_missing_source_row_label_shows_warning(qapp):
+    widget = RecentWorkspacesList()
+    widget.set_items([_summary("Gone", source_exists=False)])
+    row = widget._rows_container.itemAt(0).widget()
+    assert "source missing" in row.text()
+    assert "Gone" in row.text()

@@ -15,6 +15,7 @@ from src.services.cache_manager import CacheManager
 from src.services.file_operation_service import FileOperationService
 from src.services.overlay_manager import OverlayManager
 from src.repositories.workspace_repository import WorkspaceRepository
+from src.utils.clamp import clamp_index
 
 
 class ViewerController(QObject):
@@ -68,7 +69,8 @@ class ViewerController(QObject):
         
         images = ImageLoaderService.scan_folder(self.workspace.source_folder)
         self.workspace.image_list = images
-        
+        self.workspace.current_index = clamp_index(self.workspace.current_index, len(images))
+
         self.loading_screen.set_progress(len(images), len(images), "Loading complete!")
         
         # Initial preload

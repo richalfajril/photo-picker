@@ -5,7 +5,7 @@ from typing import Any, Dict, Optional
 
 from PySide6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel,
-    QLineEdit, QPushButton, QCheckBox, QFileDialog, QFormLayout
+    QLineEdit, QPushButton, QCheckBox, QFileDialog, QFormLayout, QScrollArea
 )
 from PySide6.QtCore import Qt, Signal
 
@@ -100,7 +100,12 @@ class StartWindow(QWidget):
 
         # Recent Workspaces
         self.recent_list = RecentWorkspacesList()
-        main_layout.addWidget(self.recent_list)
+        recent_scroll = QScrollArea()
+        recent_scroll.setWidgetResizable(True)
+        recent_scroll.setMaximumHeight(220)
+        recent_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        recent_scroll.setWidget(self.recent_list)
+        main_layout.addWidget(recent_scroll)
 
         self.setMinimumWidth(500)
 
