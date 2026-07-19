@@ -16,7 +16,10 @@ def format_relative_time(iso_timestamp: str, now: Optional[datetime] = None) -> 
         return "unknown"
 
     current = now or datetime.now()
-    seconds = (current - then).total_seconds()
+    try:
+        seconds = (current - then).total_seconds()
+    except TypeError:
+        return "unknown"
 
     if seconds < 60:
         return "just now"

@@ -29,3 +29,12 @@ def test_hours_ago_plural():
 def test_days_ago_singular():
     now = datetime(2026, 7, 19, 12, 0, 0)
     assert format_relative_time("2026-07-18T12:00:00", now=now) == "1 day ago"
+
+
+def test_tz_aware_timestamp_returns_unknown():
+    assert format_relative_time("2026-07-19T11:59:30+00:00") == "unknown"
+
+
+def test_one_minute_ago_singular():
+    now = datetime(2026, 7, 19, 12, 0, 0)
+    assert format_relative_time("2026-07-19T11:59:00", now=now) == "1 minute ago"
