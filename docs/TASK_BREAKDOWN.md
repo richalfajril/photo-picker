@@ -133,34 +133,34 @@ Status setiap task dapat diperbarui selama proses pengembangan.
 
 ## 4.1 Scan Images
 
-- [ ] Scan folder
-- [ ] Filter supported format
-- [ ] Sort images
-- [ ] Count images
+- [x] Scan folder
+- [x] Filter supported format
+- [x] Sort images
+- [x] Count images
 
 ---
 
 ## 4.2 ImageLoaderService
 
-- [ ] Load image
-- [ ] Load RAW preview
-- [ ] Error handling
+- [x] Load image
+- [x] Load RAW preview
+- [x] Error handling
 
 ---
 
 ## 4.3 CacheManager
 
-- [ ] Memory Cache
-- [ ] Thumbnail Cache
-- [ ] Background Preload
+- [x] Memory Cache
+- [x] Thumbnail Cache
+- [x] Background Preload
 
 ---
 
 ## 4.4 Loading Screen
 
-- [ ] Progress Bar
-- [ ] Progress Text
-- [ ] Status Text
+- [x] Progress Bar
+- [x] Progress Text
+- [x] Status Text
 
 ---
 
@@ -168,33 +168,33 @@ Status setiap task dapat diperbarui selama proses pengembangan.
 
 ## 5.1 Viewer Window
 
-- [ ] Fullscreen Image
-- [ ] Bottom Information
-- [ ] Selected Counter
-- [ ] Progress Counter
+- [x] Fullscreen Image
+- [x] Bottom Information
+- [x] Selected Counter
+- [x] Progress Counter
 
 ---
 
 ## 5.2 Keyboard Navigation
 
-- [ ] Next
-- [ ] Previous
-- [ ] First Image
-- [ ] Last Image
+- [x] Next
+- [x] Previous
+- [x] First Image
+- [x] Last Image
 
 ---
 
 ## 5.3 Zoom
 
-- [ ] Mouse Wheel
-- [ ] Reset Zoom
+- [x] Mouse Wheel
+- [x] Reset Zoom
 
 ---
 
 ## 5.4 Pan
 
-- [ ] Drag Image
-- [ ] Smooth Movement
+- [x] Drag Image
+- [x] Smooth Movement
 
 ---
 
@@ -202,40 +202,40 @@ Status setiap task dapat diperbarui selama proses pengembangan.
 
 ## 6.1 Copy
 
-- [ ] Copy Image
-- [ ] Skip jika sudah ada
-- [ ] Update Workspace
-- [ ] Update Counter
+- [x] Copy Image
+- [x] Skip jika sudah ada
+- [x] Update Workspace
+- [x] Update Counter
 
 ---
 
 ## 6.2 Undo
 
-- [ ] Delete copied file
-- [ ] Update Workspace
-- [ ] Update Counter
+- [x] Delete copied file
+- [x] Update Workspace
+- [x] Update Counter
 
 ---
 
 ## 6.3 Overlay
 
-- [ ] COPIED
-- [ ] REMOVED
-- [ ] COPY FAILED
+- [x] COPIED
+- [x] REMOVED
+- [x] COPY FAILED
 
 ---
 
 ## 6.4 Sound
 
-- [ ] Copy Sound
-- [ ] Undo Sound
+- [x] Copy Sound
+- [x] Undo Sound
 
 ---
 
 ## 6.5 Selected Badge
 
-- [ ] Show badge
-- [ ] Hide badge
+- [x] Show badge
+- [x] Hide badge
 
 ---
 
@@ -243,18 +243,18 @@ Status setiap task dapat diperbarui selama proses pengembangan.
 
 ## 7.1 Save
 
-- [ ] Save current index
-- [ ] Save selected images
-- [ ] Save statistics
+- [x] Save current index
+- [x] Save selected images
+- [x] Save statistics
 
 ---
 
 ## 7.2 Recovery
 
-- [ ] Detect existing Workspace
-- [ ] Show Recovery Dialog
-- [ ] Continue Workspace
-- [ ] Start New Workspace
+- [x] Detect existing Workspace
+- [x] Show Recovery Dialog
+- [x] Continue Workspace
+- [x] Start New Workspace
 
 ---
 
@@ -262,27 +262,27 @@ Status setiap task dapat diperbarui selama proses pengembangan.
 
 ## 8.1 UI
 
-- [ ] Responsive Layout
-- [ ] Smooth Overlay
-- [ ] Icon
-- [ ] Cursor
+- [x] Responsive Layout
+- [x] Smooth Overlay
+- [x] Icon
+- [x] Cursor
 
 ---
 
 ## 8.2 Performance
 
-- [ ] Lazy Loading
-- [ ] Image Preload
-- [ ] Cache Optimization
+- [x] Lazy Loading
+- [x] Image Preload
+- [x] Cache Optimization
 
 ---
 
 ## 8.3 Error Handling
 
-- [ ] Missing Source Folder
-- [ ] Missing Destination Folder
-- [ ] Copy Failed
-- [ ] Unsupported Image
+- [x] Missing Source Folder
+- [x] Missing Destination Folder
+- [x] Copy Failed
+- [x] Unsupported Image
 
 ---
 
@@ -298,7 +298,7 @@ Status setiap task dapat diperbarui selama proses pengembangan.
 
 ## 9.2 macOS
 
-- [ ] App Bundle
+- [x] App Bundle
 - [ ] Icon
 - [ ] Signing (optional)
 

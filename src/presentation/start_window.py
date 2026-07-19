@@ -110,12 +110,17 @@ class StartWindow(QWidget):
             self._validate_inputs()
 
     def _validate_inputs(self) -> None:
-        """Enables the Start button only if all required fields are filled."""
-        is_valid = bool(
-            self.workspace_name_input.text().strip() and
-            self.source_input.text().strip() and
-            self.dest_input.text().strip()
-        )
+        """Enables the Start button only if all required fields are filled and source exists."""
+        ws_name = self.workspace_name_input.text().strip()
+        src = self.source_input.text().strip()
+        dst = self.dest_input.text().strip()
+        
+        is_valid = bool(ws_name and src and dst)
+        
+        if is_valid:
+            from pathlib import Path
+            is_valid = Path(src).exists()
+            
         self.start_btn.setEnabled(is_valid)
 
     def _on_start_clicked(self) -> None:

@@ -15,8 +15,8 @@
     "semantic_hash": "e64d6f370e20e7a750cd91d35d76fb6a"
   },
   "docs/CHANGELOG.md": {
-    "mtime": 1784439575.727408,
-    "ast_hash": "fe6a205e1f5a22cfcaf4e4ea02f0e453",
+    "mtime": 1784441284.1843863,
+    "ast_hash": "7f75517b61e753feb486d84f19bfbe8b",
     "semantic_hash": ""
   },
   "docs/CLASS_DIAGRAM.md": {
@@ -70,8 +70,8 @@
     "semantic_hash": "a077a57fcbe75927915e1c3429e36bdb"
   },
   "docs/TASK_BREAKDOWN.md": {
-    "mtime": 1784439566.1301186,
-    "ast_hash": "ed083408ef56b038c9396cc36b137903",
+    "mtime": 1784441275.4408534,
+    "ast_hash": "605cbb6e60f8595b1c10b5c06b11a3d9",
     "semantic_hash": ""
   },
   "docs/TEST_PLAN.md": {
@@ -125,8 +125,8 @@
     "semantic_hash": ""
   },
   "src/main.py": {
-    "mtime": 1784438607.8507707,
-    "ast_hash": "6958be050fdbb7fb62f35934938b0203",
+    "mtime": 1784440558.030091,
+    "ast_hash": "7f19913f278f02a47c1019a9e2dea8dd",
     "semantic_hash": ""
   },
   "src/models/__init__.py": {
@@ -140,8 +140,8 @@
     "semantic_hash": ""
   },
   "src/presentation/start_window.py": {
-    "mtime": 1784438597.0013733,
-    "ast_hash": "3b29286d5e6b88113027d97c77410606",
+    "mtime": 1784440758.7046707,
+    "ast_hash": "25c46e34c92afe7d1d91b2a07e800002",
     "semantic_hash": ""
   },
   "src/repositories/__init__.py": {
@@ -175,8 +175,48 @@
     "semantic_hash": ""
   },
   "requirements.txt": {
-    "mtime": 1784436524.601637,
-    "ast_hash": "08bb23ea18ef4836f17873a357580eb8",
+    "mtime": 1784440909.5238922,
+    "ast_hash": "cf4a9980bd687b8a0dc9c1fadc629624",
+    "semantic_hash": ""
+  },
+  "src/controllers/viewer_controller.py": {
+    "mtime": 1784440742.663471,
+    "ast_hash": "7fb5684e233e4a63d513ff17d6b3db73",
+    "semantic_hash": ""
+  },
+  "src/presentation/loading_screen.py": {
+    "mtime": 1784439695.8813992,
+    "ast_hash": "2318fd3098d8d08e9d463cdc7a76b97e",
+    "semantic_hash": ""
+  },
+  "src/presentation/viewer_window.py": {
+    "mtime": 1784440733.1858575,
+    "ast_hash": "68780cb8ff26f67d247a849ebfcad7e5",
+    "semantic_hash": ""
+  },
+  "src/services/cache_manager.py": {
+    "mtime": 1784439680.389073,
+    "ast_hash": "4175560c866ab5b3fadb33ec722df262",
+    "semantic_hash": ""
+  },
+  "src/services/image_loader_service.py": {
+    "mtime": 1784439728.7010398,
+    "ast_hash": "d6e68e6deaebcbbe8cdc81892ed19346",
+    "semantic_hash": ""
+  },
+  "src/services/file_operation_service.py": {
+    "mtime": 1784440115.8748755,
+    "ast_hash": "ac7dcc295fb828005d0f78450748c74e",
+    "semantic_hash": ""
+  },
+  "src/services/overlay_manager.py": {
+    "mtime": 1784440132.275303,
+    "ast_hash": "3067adb4cd96a6519bddca41d00a971e",
+    "semantic_hash": ""
+  },
+  "src/presentation/recovery_dialog.py": {
+    "mtime": 1784440524.7217996,
+    "ast_hash": "ea3e3b28ec798ae027c55caf9b4e5163",
     "semantic_hash": ""
   }
 }

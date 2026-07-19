@@ -1,12 +1,18 @@
-# Graph Report - .  (2026-07-19)
+# Graph Report - photo-picker  (2026-07-19)
 
 ## Corpus Check
-- Corpus is ~15,017 words - fits in a single context window. You may not need a graph.
+- 43 files · ~18,550 words
+- Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 579 nodes · 564 edges · 18 communities (16 shown, 2 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
+- 759 nodes · 832 edges · 39 communities (37 shown, 2 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 11 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
+
+## Graph Freshness
+- Built from commit: `897075b2`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - UI Specification
@@ -27,6 +33,18 @@
 - Class Diagram
 - Graphify Workflow
 - Graphify Rules
+- WorkspaceRepository
+- SettingsRepository
+- StartWindow
+- Q: What connects graphify, Workflow: graphify, Photo Picker AI Development Guide to the rest of the system?
+- CacheManager
+- ViewerWindow
+- LoadingScreen
+- main.py
+- WorkspaceRepository
+- viewer_controller.py
+- OverlayManager
+- FileOperationService
 
 ## God Nodes (most connected - your core abstractions)
 1. `UI_SPEC` - 58 edges
@@ -41,9 +59,21 @@
 10. `CHANGELOG` - 30 edges
 
 ## Surprising Connections (you probably didn't know these)
-- None detected - all connections are within the same source files.
+- `ViewerController` --uses--> `Workspace`  [INFERRED]
+  src/controllers/viewer_controller.py → src/domain/workspace.py
+- `ViewerController` --uses--> `LoadingScreen`  [INFERRED]
+  src/controllers/viewer_controller.py → src/presentation/loading_screen.py
+- `ViewerController` --uses--> `ViewerWindow`  [INFERRED]
+  src/controllers/viewer_controller.py → src/presentation/viewer_window.py
+- `ViewerController` --uses--> `WorkspaceRepository`  [INFERRED]
+  src/controllers/viewer_controller.py → src/repositories/workspace_repository.py
+- `ViewerController` --uses--> `CacheManager`  [INFERRED]
+  src/controllers/viewer_controller.py → src/services/cache_manager.py
 
-## Communities (18 total, 2 thin omitted)
+## Import Cycles
+- None detected.
+
+## Communities (39 total, 2 thin omitted)
 
 ### Community 0 - "UI Specification"
 Cohesion: 0.03
@@ -109,16 +139,68 @@ Nodes (20): 1. Overview, 2. Storage Structure, 3. Storage Components, 4. Workspa
 Cohesion: 0.11
 Nodes (18): CacheManager, CLASS_DIAGRAM, Controller, Dependency Rules, Domain, FileOperationService, ImageLoaderService, Layer Description (+10 more)
 
+### Community 18 - "WorkspaceRepository"
+Cohesion: 0.19
+Nodes (7): Any, QObject, Preloads the next few images into memory cache., Refreshes the ViewerWindow with the current image., Connects the presentation layer to the domain and service layers., Shows loading screen and scans folder., ViewerController
+
+### Community 19 - "SettingsRepository"
+Cohesion: 0.15
+Nodes (10): Global constants for Photo Picker MVP., Any, Path, Repository for managing global Application Settings., Handles reading and writing application settings to settings.json., Returns the default settings structure., Load settings from file, returning defaults if not found or corrupted., Save settings to the file system. (+2 more)
+
+### Community 20 - "StartWindow"
+Cohesion: 0.22
+Nodes (5): QWidget, Startup Window UI Component., Enables the Start button only if all required fields are filled., The initial window for workspace configuration., StartWindow
+
+### Community 21 - "Q: What connects graphify, Workflow: graphify, Photo Picker AI Development Guide to the rest of the system?"
+Cohesion: 0.50
+Nodes (3): Answer, Q: What connects graphify, Workflow: graphify, Photo Picker AI Development Guide to the rest of the system?, Source Nodes
+
+### Community 31 - "CacheManager"
+Cohesion: 0.09
+Nodes (19): CacheManager, QImage, QObject, Service for managing image cache and background preloading., Manages in-memory image caching and background preloading      to ensure instant, Retrieves the image from cache if available, otherwise loads it synchronously., Submits a list of file paths to be preloaded in the background., Task executed in the thread pool. (+11 more)
+
+### Community 32 - "ViewerWindow"
+Cohesion: 0.12
+Nodes (12): QGraphicsView, QKeyEvent, QMouseEvent, QWheelEvent, PhotoGraphicsView, QImage, QWidget, Viewer Window UI Component. (+4 more)
+
+### Community 33 - "LoadingScreen"
+Cohesion: 0.20
+Nodes (6): LoadingScreen, QWidget, Loading Screen UI Component., Updates the progress bar and labels., Updates only the status message., Displays progress during the initial folder scan and image caching phase.
+
+### Community 34 - "main.py"
+Cohesion: 0.24
+Nodes (7): QDialog, main(), Entry point for the Photo Picker application., QWidget, Workspace Recovery Dialog UI Component., Dialog asking the user whether to continue an existing workspace     or start a, RecoveryDialog
+
+### Community 35 - "WorkspaceRepository"
+Cohesion: 0.23
+Nodes (7): Path, Handles reading and writing Workspace data to the file system., Convert workspace name to a safe folder name., Get the absolute path to a workspace folder., Save a workspace and its selections to the file system., Load a workspace by name. Returns None if not found., WorkspaceRepository
+
+### Community 36 - "viewer_controller.py"
+Cohesion: 0.27
+Nodes (6): Main controller orchestrating the Viewer UI and business logic., Domain model for Workspace., Represents the state of a Photo Picker session.     Workspace is the aggregate r, Update the last modified timestamp., Workspace, Repository for managing Workspace storage.
+
+### Community 37 - "OverlayManager"
+Cohesion: 0.22
+Nodes (5): OverlayManager, QWidget, Service for managing visual UI overlays (COPIED, REMOVED)., Shows a fading overlay with the given text and color., Manages transient visual notifications on top of the ViewerWindow.
+
+### Community 38 - "FileOperationService"
+Cohesion: 0.25
+Nodes (5): FileOperationService, Service for file operations (Copy and Remove)., Copies the source file to the destination folder.         Returns True if succes, Removes the copied file from the destination folder (Undo action).         Does, Handles safe file copying and removal for the Photo Picker workflow.     Never m
+
 ## Knowledge Gaps
-- **547 isolated node(s):** `graphify`, `Workflow: graphify`, `Photo Picker AI Development Guide`, `Project Overview`, `Mandatory Rules` (+542 more)
+- **549 isolated node(s):** `Answer`, `Source Nodes`, `graphify`, `Workflow: graphify`, `Photo Picker AI Development Guide` (+544 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **What connects `graphify`, `Workflow: graphify`, `Photo Picker AI Development Guide` to the rest of the system?**
-  _547 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `ViewerController` connect `WorkspaceRepository` to `ViewerWindow`, `LoadingScreen`, `main.py`, `WorkspaceRepository`, `viewer_controller.py`, `OverlayManager`, `FileOperationService`, `CacheManager`?**
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
+- **Why does `CacheManager` connect `CacheManager` to `WorkspaceRepository`, `viewer_controller.py`?**
+  _High betweenness centrality (0.008) - this node is a cross-community bridge._
+- **What connects `Answer`, `Source Nodes`, `graphify` to the rest of the system?**
+  _549 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `UI Specification` be split into smaller, more focused modules?**
   _Cohesion score 0.03389830508474576 - nodes in this community are weakly interconnected._
 - **Should `Task Breakdown` be split into smaller, more focused modules?**
@@ -127,7 +209,3 @@ _Questions this graph is uniquely positioned to answer:_
   _Cohesion score 0.041666666666666664 - nodes in this community are weakly interconnected._
 - **Should `Product Requirements` be split into smaller, more focused modules?**
   _Cohesion score 0.043478260869565216 - nodes in this community are weakly interconnected._
-- **Should `AI Agent Guidelines` be split into smaller, more focused modules?**
-  _Cohesion score 0.046511627906976744 - nodes in this community are weakly interconnected._
-- **Should `Error Handling` be split into smaller, more focused modules?**
-  _Cohesion score 0.046511627906976744 - nodes in this community are weakly interconnected._

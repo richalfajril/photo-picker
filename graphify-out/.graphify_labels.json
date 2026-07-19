@@ -29,5 +29,13 @@
   "27": "__init__.py",
   "28": "__init__.py",
   "29": "__init__.py",
-  "30": "__init__.py"
+  "30": "__init__.py",
+  "31": "CacheManager",
+  "32": "ViewerWindow",
+  "33": "LoadingScreen",
+  "34": "main.py",
+  "35": "WorkspaceRepository",
+  "36": "viewer_controller.py",
+  "37": "OverlayManager",
+  "38": "FileOperationService"
 }
